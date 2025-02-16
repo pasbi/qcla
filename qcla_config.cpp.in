@@ -1,0 +1,2 @@
+#include "qcla_config.h"
+const char QCLA_GIT_DESCRIBE[] = "@GIT_DESCRIBE@";

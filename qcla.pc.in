@@ -1,0 +1,13 @@
+# Package Information for pkg-config
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@QCLA_INSTALL_LIBDIR@
+includedir=${prefix}/@QCLA_INSTALL_INCLUDEDIR@
+
+Name: qcla
+Description: A Command Line Option Library based on QCommandLineParser
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lqcla
+Cflags: -I${includedir} -I${includedir}/qcla
+Requires.private: @PKGCONFIG_OPENCV_REQUIRED@

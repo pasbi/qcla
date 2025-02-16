@@ -1,0 +1,10 @@
+#pragma once
+
+static constexpr auto QCLA_VERSION_MAJOR = "@PROJECT_VERSION_MAJOR@";
+static constexpr auto QCLA_VERSION_MINOR = "@PROJECT_VERSION_MINOR@";
+static constexpr auto QCLA_VERSION_PATCH = "@PROJECT_VERSION_PATCH@";
+static constexpr auto QCLA_VERSION = "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@";
+
+// Don't define the value in the header because it changes with every commit and hence would require
+// a lot of compilation units to rebuild hence slowing down the build significantly.
+extern const char QCLA_GIT_DESCRIBE[];
