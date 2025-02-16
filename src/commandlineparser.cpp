@@ -1,7 +1,16 @@
 #include "commandlineparser.h"
 #include "argumentgroup.h"
 
+#include "fmt.h"
+#include <QCoreApplication>
 #include <spdlog/spdlog.h>
+
+namespace
+{
+
+constexpr auto VERSION_OPTION_NAME = "version";
+
+}
 
 namespace qcla
 {
@@ -20,10 +29,17 @@ CommandLineOption& CommandLineParser::add_option(QString name)
   if (m_help_option_active) {
     parser->addHelpOption();
   }
-  if (m_version_option_active) {
-    parser->addVersionOption();
-  }
   parser->process(arguments);
+  if (parser->isSet(VERSION_OPTION_NAME)) {
+    for (const auto& [name, version, vcs_describe] : m_dependencies) {
+      if (vcs_describe.isEmpty()) {
+        fmt::print("  {:.<30} {}\n", name, version);
+      } else {
+        fmt::print("  {:.<30} {: <8} {}\n", name, version, vcs_describe);
+      }
+    }
+    ::exit(EXIT_SUCCESS);
+  }
   for (const auto& group : m_argument_groups) {
     group.check(*parser);
   }
@@ -44,7 +60,12 @@ void CommandLineParser::add_help_option()
 
 void CommandLineParser::add_version_option()
 {
-  m_version_option_active = true;
+  add_option(VERSION_OPTION_NAME).description("Print version information and exit.");
+}
+
+void CommandLineParser::add_dependency(Dependency dependency)
+{
+  m_dependencies.emplace_back(std::move(dependency));
 }
 
 }  // namespace qcla

@@ -1,11 +1,12 @@
 target_sources(qcla PRIVATE
-        ${CMAKE_BINARY_DIR}/qcla-config.cpp
         commandlineoption.cpp
         commandlineoption.h
         commandlineparser.cpp
         commandlineparser.h
         argumentgroup.cpp
         argumentgroup.h
+        dependency.cpp
+        dependency.h
         fmt.h
 )
 
@@ -22,4 +23,5 @@ install(FILES ${CMAKE_BINARY_DIR}/qcla_config.h
         commandlineoption.h
         commandlineparser.h
         argumentgroup.h
+        dependency.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qcla)

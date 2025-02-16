@@ -23,7 +23,11 @@ find_package(fmt REQUIRED)
 find_package(spdlog REQUIRED)
 qt_standard_project_setup(REQUIRES 6.5)
 
-qt_add_library(qcla SHARED)
+qt_add_library(qcla SHARED
+        ${CMAKE_BINARY_DIR}/qcla-config.cpp
+        ${CMAKE_BINARY_DIR}/qcla-config.h
+)
+
 target_compile_features(qcla PUBLIC cxx_std_20)
 target_compile_definitions(qcla PUBLIC
         QT_NO_KEYWORDS  # avoid clashes of common Qt-keywords like 'signal' with other frameworks.
